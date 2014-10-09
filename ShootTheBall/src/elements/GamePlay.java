@@ -21,10 +21,11 @@ public class GamePlay extends Canvas{
 	BufferStrategy buff;
 	//Balls
 	ArrayList<Ball> balls;
-	//
+	
 	public GamePlay(){
 		setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
+        setIgnoreRepaint(true); //no automatic painting
         balls = new ArrayList<Ball>();
 		setWindow();
 	}
@@ -34,6 +35,7 @@ public class GamePlay extends Canvas{
 		window.setTitle("Shoot the Ball!");    
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setIgnoreRepaint(true);
     	window.add(this);
     	window.setResizable(false);
     	window.pack();
@@ -100,12 +102,14 @@ public class GamePlay extends Canvas{
      
     	try {
     		g = buff.getDrawGraphics();
+    		g.setColor(Color.BLACK);
+    		g.fillRect(0, 0, B_WIDTH, B_HEIGHT);
     		//System.out.println("draw balls!");
     		for(Ball ball : balls){
 	    		if(ball.isVisible()){
 	    			System.out.println("draw ball!");
 	    			g.setColor(ball.getColor());
-		    		g.fillOval(ball.getX()-ball.getRadius(), ball.getY()-ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
+		    		g.fillOval((int)ball.getX()-ball.getRadius(), (int)ball.getY()-ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
 	    		}
 	    	}
     	} finally {

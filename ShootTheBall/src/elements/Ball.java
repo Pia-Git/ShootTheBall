@@ -12,9 +12,9 @@ public class Ball {
 	private int radius;
 	boolean visible;
 	private Color color;
-	private int x;
-	private int y;
-    //
+	private float x;
+	private float y;
+    
     public Ball(String ballcolor){
     	switch (ballcolor){
     	case "red":
@@ -52,19 +52,19 @@ public class Ball {
         this.visible = visible;
     }
     
-    public int getX(){
+    public float getX(){
     	return x;
     }
 
-    public int getY(){
+    public float getY(){
     	return y;
     }
     
     public void move(long delta) {
     	//posX += (float)velocityInPixelPerSecond * delta * 0.001f
-    	x += 30 * delta * 0.001f;
+    	x += 50 * delta * 0.001f;
     	System.out.println(x);
-        if (x > B_WIDTH)
+        if (x > B_WIDTH+40)
             visible = false; //disapear
     }
 }
