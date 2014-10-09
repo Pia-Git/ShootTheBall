@@ -14,7 +14,7 @@ public class Ball {
 	private Color color;
 	private int x;
 	private int y;
-    
+    //
     public Ball(String ballcolor){
     	switch (ballcolor){
     	case "red":

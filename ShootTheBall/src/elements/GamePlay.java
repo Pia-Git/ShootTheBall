@@ -21,7 +21,7 @@ public class GamePlay extends Canvas{
 	BufferStrategy buff;
 	//Balls
 	ArrayList<Ball> balls;
-	
+	//
 	public GamePlay(){
 		setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
