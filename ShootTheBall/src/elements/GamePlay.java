@@ -26,6 +26,7 @@ public class GamePlay extends Canvas{
 	LinkedList<Ball> balls;
 	
 	public GamePlay(){
+		//
 		setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         setIgnoreRepaint(true); //no automatic painting

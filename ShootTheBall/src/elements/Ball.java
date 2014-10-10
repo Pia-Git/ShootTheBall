@@ -16,6 +16,7 @@ public class Ball {
 	private float y;
     
     public Ball(String ballcolor){
+    	//
     	switch (ballcolor){
     	case "red":
     		color = Color.RED;
