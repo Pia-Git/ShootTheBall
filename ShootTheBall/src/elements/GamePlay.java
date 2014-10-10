@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 import javax.swing.JFrame;
 
@@ -20,13 +23,41 @@ public class GamePlay extends Canvas{
 	//Buffer
 	BufferStrategy buff;
 	//Balls
-	ArrayList<Ball> balls;
+	LinkedList<Ball> balls;
 	
 	public GamePlay(){
 		setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         setIgnoreRepaint(true); //no automatic painting
-        balls = new ArrayList<Ball>();
+        balls = new LinkedList<Ball>();
+		this.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent ev) {
+				System.out.println("click!");
+				for(Ball ball : balls){
+		    		if(ball.isVisible()){
+		    			//cursor coordinates = ball coordinates
+		    			if(ev.getX() > (ball.getX()-ball.getRadius()) && ev.getX() < (ball.getX()+ball.getRadius())){
+							if(ev.getY() > (ball.getY()-ball.getRadius()) && ev.getY() < (ball.getY()+ball.getRadius()))
+								System.out.println("TREFFER!");
+							else
+								System.out.println("kein Treffer!");			
+						}
+						else{
+							System.out.println("kein Treffer!");
+						}
+		    		}
+		    	}
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+        });
 		setWindow();
 	}
 	
@@ -40,22 +71,6 @@ public class GamePlay extends Canvas{
     	window.setResizable(false);
     	window.pack();
     	win = window;
-    	
-    	/*this.addMouseListener(new MouseListener(){
-			@Override
-			public void mouseClicked(MouseEvent ev) {
-				//balls durchlaufen
-				if(ev.getX() > (x-RADIUS_RED) && ev.getX() < (x+RADIUS_RED)){
-					if(ev.getY() > (y-RADIUS_RED) && ev.getY() < (y+RADIUS_RED))
-						System.out.println("TREFFER!");
-					else
-						System.out.println("kein Treffer!");			
-				}
-				else{
-					System.out.println("kein Treffer!");
-				}
-			}
-        });*/
 	}
 	
     public void init() {
@@ -87,12 +102,13 @@ public class GamePlay extends Canvas{
         	}
         	lastTime = currentTime;
         	//move balls
-        	for(Ball ball : balls){
-	    		if(ball.isVisible()){
-	    			System.out.println("move ball");
-	    			ball.move(delta);
-	    		}
-	    	}
+        	for(ListIterator<Ball> i = balls.listIterator(); i.hasNext();){
+        	    Ball ball = i.next();
+        	    if(ball.isVisible())
+        	    	ball.move(delta);
+        	    else
+        	        i.remove();
+        	}
         	drawStuff();
         }
     }
@@ -104,10 +120,8 @@ public class GamePlay extends Canvas{
     		g = buff.getDrawGraphics();
     		g.setColor(Color.BLACK);
     		g.fillRect(0, 0, B_WIDTH, B_HEIGHT);
-    		//System.out.println("draw balls!");
     		for(Ball ball : balls){
 	    		if(ball.isVisible()){
-	    			System.out.println("draw ball!");
 	    			g.setColor(ball.getColor());
 		    		g.fillOval((int)ball.getX()-ball.getRadius(), (int)ball.getY()-ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
 	    		}

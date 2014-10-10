@@ -18,7 +18,7 @@ public class Ball {
     public Ball(String ballcolor){
     	switch (ballcolor){
     	case "red":
-    		color = Color.red;
+    		color = Color.RED;
     		init_x = -40;
     		init_y = 25;
     		radius = 8;
@@ -63,7 +63,6 @@ public class Ball {
     public void move(long delta) {
     	//posX += (float)velocityInPixelPerSecond * delta * 0.001f
     	x += 50 * delta * 0.001f;
-    	System.out.println(x);
         if (x > B_WIDTH+40)
             visible = false; //disapear
     }
