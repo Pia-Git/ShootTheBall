@@ -22,6 +22,8 @@ public class GamePlay extends Canvas{
 	JFrame win;
 	//Buffer
 	BufferStrategy buff;
+	//Buffer for mouseclicks
+	Buffer<MouseClick> mouseBuff;
 	//Balls
 	LinkedList<Ball> balls;
 	
@@ -31,24 +33,12 @@ public class GamePlay extends Canvas{
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         setIgnoreRepaint(true); //no automatic painting
         balls = new LinkedList<Ball>();
+        mouseBuff = new Buffer<MouseClick>();
 		this.addMouseListener(new MouseListener(){
 			@Override
 			public void mouseClicked(MouseEvent ev) {
 				System.out.println("click!");
-				for(Ball ball : balls){
-		    		if(ball.isVisible()){
-		    			//cursor coordinates = ball coordinates
-		    			if(ev.getX() > (ball.getX()-ball.getRadius()) && ev.getX() < (ball.getX()+ball.getRadius())){
-							if(ev.getY() > (ball.getY()-ball.getRadius()) && ev.getY() < (ball.getY()+ball.getRadius()))
-								System.out.println("TREFFER!");
-							else
-								System.out.println("kein Treffer!");			
-						}
-						else{
-							System.out.println("kein Treffer!");
-						}
-		    		}
-		    	}
+				mouseBuff.push(new MouseClick(ev.getX(), ev.getY()));
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {}
@@ -90,6 +80,23 @@ public class GamePlay extends Canvas{
 
         //infinite loop
         while (true) {
+        	
+        	//handle mouseclicks
+        	while(!mouseBuff.isEmpty()){
+        	    MouseClick click = mouseBuff.pop();
+        	    for(Ball ball : balls){
+		    		if(ball.isVisible()){
+		    			//cursor coordinates = ball coordinates
+		    			if(click.getX() > (ball.getXPosition()-ball.getRadius()) && click.getX() < (ball.getXPosition()+ball.getRadius())){
+							if(click.getY() > (ball.getYPosition()-ball.getRadius()) && click.getY() < (ball.getYPosition()+ball.getRadius())){
+								System.out.println("TREFFER!");
+								ball.setKilled(true);
+								break;
+							}		
+						}
+		    		}
+		    	}
+        	}
 
         	currentTime = System.currentTimeMillis();
         	delta = currentTime - lastTime;
@@ -105,7 +112,7 @@ public class GamePlay extends Canvas{
         	//move balls
         	for(ListIterator<Ball> i = balls.listIterator(); i.hasNext();){
         	    Ball ball = i.next();
-        	    if(ball.isVisible())
+        	    if(ball.isVisible() && !ball.isKilled())
         	    	ball.move(delta);
         	    else
         	        i.remove();
@@ -124,7 +131,7 @@ public class GamePlay extends Canvas{
     		for(Ball ball : balls){
 	    		if(ball.isVisible()){
 	    			g.setColor(ball.getColor());
-		    		g.fillOval((int)ball.getX()-ball.getRadius(), (int)ball.getY()-ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
+		    		g.fillOval((int)ball.getXPosition()-ball.getRadius(), (int)ball.getYPosition()-ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
 	    		}
 	    	}
     	} finally {

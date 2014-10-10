@@ -11,9 +11,10 @@ public class Ball {
 	private int init_y;
 	private int radius;
 	boolean visible;
+	boolean killed;
 	private Color color;
-	private float x;
-	private float y;
+	private float xPosition;
+	private float yPosition;
     
     public Ball(String ballcolor){
     	//
@@ -32,9 +33,10 @@ public class Ball {
     		break;
     	}
     	//Startwerte
-    	x = init_x;
-    	y = init_y;
+    	xPosition = init_x;
+    	yPosition = init_y;
     	visible = true;
+    	killed = false;
     }
     
     public Color getColor(){
@@ -48,23 +50,31 @@ public class Ball {
     public boolean isVisible() {
         return visible;
     }
+    
+    public boolean isKilled() {
+        return killed;
+    }
 
     public void setVisible(Boolean visible) {
         this.visible = visible;
     }
     
-    public float getX(){
-    	return x;
+    public void setKilled(Boolean killed) {
+        this.killed = killed;
+    }
+    
+    public float getXPosition(){
+    	return xPosition;
     }
 
-    public float getY(){
-    	return y;
+    public float getYPosition(){
+    	return yPosition;
     }
     
     public void move(long delta) {
     	//posX += (float)velocityInPixelPerSecond * delta * 0.001f
-    	x += 50 * delta * 0.001f;
-        if (x > B_WIDTH+40)
+    	xPosition += 50 * delta * 0.001f;
+        if (xPosition > (B_WIDTH+40))
             visible = false; //disapear
     }
 }
