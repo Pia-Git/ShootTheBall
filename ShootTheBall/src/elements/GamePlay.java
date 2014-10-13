@@ -26,9 +26,10 @@ public class GamePlay extends Canvas{
 	Buffer<MouseClick> mouseBuff;
 	//Balls
 	LinkedList<Ball> balls;
+	//Highscore
+	int highscore = 0;
 	
 	public GamePlay(){
-		//
 		setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         setIgnoreRepaint(true); //no automatic painting
@@ -76,7 +77,9 @@ public class GamePlay extends Canvas{
         long delta = 0; //time difference
         long lastTime = System.currentTimeMillis();
         long currentTime;
-        long counter = 0;
+        long counterRed = 0;
+        long counterBlue = 0;
+        long counterGreen = 0;
 
         //infinite loop
         while (true) {
@@ -91,6 +94,7 @@ public class GamePlay extends Canvas{
 							if(click.getY() > (ball.getYPosition()-ball.getRadius()) && click.getY() < (ball.getYPosition()+ball.getRadius())){
 								System.out.println("TREFFER!");
 								ball.setKilled(true);
+								highscore+= ball.getPoints();
 								break;
 							}		
 						}
@@ -101,12 +105,25 @@ public class GamePlay extends Canvas{
         	currentTime = System.currentTimeMillis();
         	delta = currentTime - lastTime;
         	
-        	counter += delta;
-        	//every 2 seconds
-        	if( counter >= 2000 ) {
+        	counterRed += delta;
+        	counterBlue += delta;
+        	counterGreen += delta;
+
+        	//every seconds
+        	if(counterBlue >= 1500) {
+        		Ball blueBall = new Ball("blue");
+        		balls.add(blueBall);
+        	    counterBlue -= 1500;
+        	}
+        	if(counterRed >= 2000) {
         		Ball redBall = new Ball("red");
         		balls.add(redBall);
-        	    counter -= 2000;
+        	    counterRed -= 2000;
+        	}
+        	if(counterGreen >= 3000) {
+        		Ball greenBall = new Ball("green");
+        		balls.add(greenBall);
+        	    counterGreen -= 3000;
         	}
         	lastTime = currentTime;
         	//move balls
@@ -128,6 +145,9 @@ public class GamePlay extends Canvas{
     		g = buff.getDrawGraphics();
     		g.setColor(Color.BLACK);
     		g.fillRect(0, 0, B_WIDTH, B_HEIGHT);
+    		g.setColor(Color.YELLOW);
+    		String number = String.valueOf(highscore);
+    		g.drawString(number, 310, 340);
     		for(Ball ball : balls){
 	    		if(ball.isVisible()){
 	    			g.setColor(ball.getColor());

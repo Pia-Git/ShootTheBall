@@ -15,6 +15,8 @@ public class Ball {
 	private Color color;
 	private float xPosition;
 	private float yPosition;
+	private int points;
+	private int speed;
     
     public Ball(String ballcolor){
     	//
@@ -23,13 +25,25 @@ public class Ball {
     		color = Color.RED;
     		init_x = -40;
     		init_y = 25;
-    		radius = 8;
+    		radius = 7;
+    		speed = 100;
+    		points = 10;
     		break;
     	case "blue":
-    		color = Color.blue;
+    		color = Color.BLUE;
+    		init_x = -40;
+    		init_y = 100;
+    		radius = 5;
+    		speed = 70;
+    		points = 20;
     		break;
-    	case "yellow":
-    		color = Color.yellow;
+    	case "green":
+    		color = Color.GREEN;
+    		init_x = 390;
+    		init_y = 60;
+    		radius = 9;
+    		speed = -90;
+    		points = 5;
     		break;
     	}
     	//Startwerte
@@ -71,10 +85,14 @@ public class Ball {
     	return yPosition;
     }
     
+    public int getPoints(){
+    	return points;
+    }
+    
     public void move(long delta) {
     	//posX += (float)velocityInPixelPerSecond * delta * 0.001f
-    	xPosition += 50 * delta * 0.001f;
-        if (xPosition > (B_WIDTH+40))
+    	xPosition += speed * delta * 0.001f;
+        if (xPosition > (B_WIDTH+40) || xPosition < -40)
             visible = false; //disapear
     }
 }
