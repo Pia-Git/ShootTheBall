@@ -2,6 +2,7 @@ package elements;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -146,6 +147,7 @@ public class GamePlay extends Canvas{
     		g.setColor(Color.BLACK);
     		g.fillRect(0, 0, B_WIDTH, B_HEIGHT);
     		g.setColor(Color.YELLOW);
+    		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
     		String number = String.valueOf(highscore);
     		g.drawString(number, 310, 340);
     		for(Ball ball : balls){
