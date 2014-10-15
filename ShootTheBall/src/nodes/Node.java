@@ -1,30 +1,16 @@
 package nodes;
 
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
+import java.awt.Graphics2D;
 
-import elements.Buffer;
 import elements.MouseClick;
 
 public class Node {
-	
-	public final int B_WIDTH = 350;
-	public final int B_HEIGHT = 350;
-	BufferStrategy buff;
 
-	public Node(){
-		
-	}
+	public Node(){}
 	
-	public void update(int delta){
-		
-	}
+	public void update(long delta){}
 	
-	public void draw(){
-		
-	}
+	public void draw(Graphics2D g){}
 	
-	public void handleClicks(Buffer<MouseClick> mouseBuff){
-		
-	}
+	public void handleClick(MouseClick click){}
 }

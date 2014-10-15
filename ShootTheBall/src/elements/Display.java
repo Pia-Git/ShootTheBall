@@ -2,22 +2,22 @@ package elements;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
-import nodes.Game;
-import nodes.Menu;
+import nodes.Node;
 
-public class GamePlay extends Canvas{
+public class Display extends Canvas{
 
 	private static final long serialVersionUID = 1L;
 	//Board Size
-	private final int B_WIDTH = 350;
-	private final int B_HEIGHT = 350;
+	public static final int B_WIDTH = 350;
+	public static final int B_HEIGHT = 350;
 	//Window
 	JFrame win;
 	//Buffer
@@ -25,15 +25,13 @@ public class GamePlay extends Canvas{
 	//Buffer for mouseclicks
 	Buffer<MouseClick> mouseBuff;
 	//States
-	Menu menu;
-	Game game;
+	Node root;
 	
-	public GamePlay(){
+	public Display(){
 		setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         setIgnoreRepaint(true); //no automatic painting
         mouseBuff = new Buffer<MouseClick>();
-        game = new Game(buff);
 		this.addMouseListener(new MouseListener(){
 			@Override
 			public void mouseClicked(MouseEvent ev) {}
@@ -71,27 +69,40 @@ public class GamePlay extends Canvas{
     	gameLoop();
     }
     
+    public void setRoot(Node node) {
+    	this.root = node;
+    }
+    
     private void gameLoop(){
     	
         long delta = 0; //time difference
         long lastTime = System.currentTimeMillis();
         long currentTime;
-        Graphics g = null;
 
         //infinite loop
         while (true) {
-        	
-        	//handle mouseclicks
-        	while(!mouseBuff.isEmpty()){
-        	    game.handleClicks(mouseBuff);
-        	}
 
         	currentTime = System.currentTimeMillis();
         	delta = currentTime - lastTime;
-        	
-        	game.update(g, delta);
-
         	lastTime = currentTime;
+        	
+        	//handle mouseclicks
+        	while(!mouseBuff.isEmpty()){
+        		root.handleClick(mouseBuff.pop());
+        	}
+        	//update node
+        	root.update(delta);
+        	//drawing
+        	Graphics2D g = (Graphics2D)buff.getDrawGraphics();
+        	try {
+        		g.setColor(Color.BLACK);
+        		g.fillRect(0, 0, B_WIDTH, B_HEIGHT);
+        		root.draw(g);
+        	} finally {
+        			g.dispose();
+        	}
+        	buff.show();
+        	Toolkit.getDefaultToolkit().sync();	
         }
     }
     
