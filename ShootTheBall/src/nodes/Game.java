@@ -3,6 +3,7 @@ package nodes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -21,10 +22,12 @@ public class Game extends Node{
 	
 	public Game(){
 		balls = new LinkedList<Ball>();
+		nodes.add(new Countdown());
 	}
 	
 	@Override
 	public void handleClick(MouseClick click){
+		super.handleClick(click);
 	    for(Ball ball : balls){
     		if(ball.isVisible()){
     			//cursor coordinates = ball coordinates
@@ -41,6 +44,7 @@ public class Game extends Node{
 
 	@Override
 	public void update(long delta){
+		super.update(delta);
 		
 		counterRed += delta;
     	counterBlue += delta;
@@ -73,6 +77,7 @@ public class Game extends Node{
 	
 	@Override
 	public void draw(Graphics2D g){
+		super.draw(g);
 	     
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16)); 

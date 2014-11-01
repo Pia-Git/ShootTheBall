@@ -24,7 +24,7 @@ public class Ball {
     	case "red":
     		color = Color.RED;
     		init_x = -40;
-    		init_y = 25;
+    		init_y = 45;
     		radius = 7;
     		speed = 100;
     		points = 10;
@@ -32,7 +32,7 @@ public class Ball {
     	case "blue":
     		color = Color.BLUE;
     		init_x = -40;
-    		init_y = 100;
+    		init_y = 120;
     		radius = 5;
     		speed = 70;
     		points = 20;
@@ -40,7 +40,7 @@ public class Ball {
     	case "green":
     		color = Color.GREEN;
     		init_x = 390;
-    		init_y = 60;
+    		init_y = 80;
     		radius = 9;
     		speed = -90;
     		points = 5;

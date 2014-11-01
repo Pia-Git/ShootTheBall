@@ -71,6 +71,7 @@ public class Display extends Canvas{
     
     public void setRoot(Node node) {
     	this.root = node;
+    	node.setDisplay(this);
     }
     
     private void gameLoop(){
