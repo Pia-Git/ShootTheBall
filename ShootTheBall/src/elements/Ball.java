@@ -23,7 +23,7 @@ public class Ball {
     	switch (ballcolor){
     	case "red":
     		color = Color.RED;
-    		init_x = -40;
+    		init_x = -20;
     		init_y = 45;
     		radius = 7;
     		speed = 100;
@@ -31,7 +31,7 @@ public class Ball {
     		break;
     	case "blue":
     		color = Color.BLUE;
-    		init_x = -40;
+    		init_x = -20;
     		init_y = 120;
     		radius = 5;
     		speed = 70;
@@ -39,7 +39,7 @@ public class Ball {
     		break;
     	case "green":
     		color = Color.GREEN;
-    		init_x = 390;
+    		init_x = 370;
     		init_y = 80;
     		radius = 9;
     		speed = -90;

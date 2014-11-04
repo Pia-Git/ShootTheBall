@@ -20,6 +20,8 @@ public class Display extends Canvas{
 	public static final int B_HEIGHT = 350;
 	//Window
 	JFrame win;
+	//Gameloop
+	boolean isRunning = true;
 	//Buffer
 	BufferStrategy buff;
 	//Buffer for mouseclicks
@@ -48,6 +50,11 @@ public class Display extends Canvas{
 			public void mouseReleased(MouseEvent e) {}
         });
 		setWindow();
+	}
+	
+	public void exit(){
+		isRunning = false;
+		win.dispose();
 	}
 	
 	private void setWindow(){
@@ -81,7 +88,7 @@ public class Display extends Canvas{
         long currentTime;
 
         //infinite loop
-        while (true) {
+        while (isRunning) {
 
         	currentTime = System.currentTimeMillis();
         	delta = currentTime - lastTime;

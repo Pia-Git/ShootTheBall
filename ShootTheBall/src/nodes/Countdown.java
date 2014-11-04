@@ -9,8 +9,8 @@ import elements.MouseClick;
 public class Countdown extends Node{
 	
 	//countdown
-	long counter;
-	boolean isRunning = true;
+	private long counter;
+	private boolean isElapsed = false;
 	String count = "1:00";
 	
 	public Countdown(){
@@ -26,12 +26,12 @@ public class Countdown extends Node{
 	@Override
 	public void update(long delta){
 		super.update(delta);
-		if(isRunning){
+		if(!isElapsed){
 			counter = counter-delta;
 			millisecondsToMinute(counter);
 			System.out.println(counter);
 			if(counter <= 0){
-				isRunning = false;
+				isElapsed = true;
 				//spiel anhalten!
 				System.out.println("STOP!");
 			}
@@ -42,7 +42,7 @@ public class Countdown extends Node{
 	public void draw(Graphics2D g){
 		super.draw(g);
 		//countdown text
-		if(isRunning){
+		if(!isElapsed){
 			g.setColor(Color.YELLOW);
 		}else{
 			g.setColor(Color.RED);
@@ -61,6 +61,10 @@ public class Countdown extends Node{
 		}else{
 			count = minute+":"+seconds;
 		}
+	}
+	
+	public boolean getElapsed(){
+		return isElapsed;
 	}
 
 }
