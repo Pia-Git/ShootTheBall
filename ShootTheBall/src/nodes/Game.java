@@ -87,7 +87,7 @@ public class Game extends Node{
 			if(!isEnd){
 				counterEnd += delta;
 				if(counterEnd >= 2000) {
-					//delete all balls
+					//delete balls
 					deleteBalls();
 		    	}
 			}
@@ -120,7 +120,7 @@ public class Game extends Node{
 	    	}
 		}
 		else{
-			//go to menu
+			//after game go to menu
 			display.setRoot(new Menu(highscore));
 		}
 	}

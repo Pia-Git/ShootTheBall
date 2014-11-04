@@ -30,6 +30,7 @@ public class Display extends Canvas{
 	Node root;
 	
 	public Display(){
+		
 		setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         setIgnoreRepaint(true); //no automatic painting
@@ -43,7 +44,6 @@ public class Display extends Canvas{
 			public void mouseExited(MouseEvent e) {}
 			@Override
 			public void mousePressed(MouseEvent ev) {
-				System.out.println("click!");
 				mouseBuff.push(new MouseClick(ev.getX(), ev.getY()));
 			}
 			@Override

@@ -78,7 +78,6 @@ public class Menu extends Node{
 				button.setDimension(new Dimension(adv+padding, hgt+padding));
 			}
 	    }
-		
 		isSetting = true;
 	}
 }

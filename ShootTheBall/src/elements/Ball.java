@@ -19,7 +19,7 @@ public class Ball {
 	private int speed;
     
     public Ball(String ballcolor){
-    	//
+    	
     	switch (ballcolor){
     	case "red":
     		color = Color.RED;

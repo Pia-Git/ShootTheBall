@@ -32,8 +32,8 @@ public class Countdown extends Node{
 			System.out.println(counter);
 			if(counter <= 0){
 				isElapsed = true;
-				//spiel anhalten!
-				System.out.println("STOP!");
+				//stop game
+				System.out.println("countdown elapsed");
 			}
 		}
 	}
@@ -41,7 +41,6 @@ public class Countdown extends Node{
 	@Override
 	public void draw(Graphics2D g){
 		super.draw(g);
-		//countdown text
 		if(!isElapsed){
 			g.setColor(Color.YELLOW);
 		}else{
