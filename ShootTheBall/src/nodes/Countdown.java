@@ -28,8 +28,7 @@ public class Countdown extends Node{
 		super.update(delta);
 		if(!isElapsed){
 			counter = counter-delta;
-			millisecondsToMinute(counter);
-			System.out.println(counter);
+			count = millisecondsToMinute(counter);
 			if(counter <= 0){
 				isElapsed = true;
 				//stop game
@@ -49,16 +48,15 @@ public class Countdown extends Node{
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16)); 
 		String number = String.valueOf(count);
 		g.drawString(number, 310, 20);
-		
 	}
 	
-	private void millisecondsToMinute(long milli){
+	private String millisecondsToMinute(long milli){
 		long seconds = milli/1000;
 		long minute = seconds/60;
 		if(seconds < 10){
-			count = minute+":0"+seconds;
+			return minute+":0"+seconds;
 		}else{
-			count = minute+":"+seconds;
+			return minute+":"+seconds;
 		}
 	}
 	

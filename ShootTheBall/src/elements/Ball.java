@@ -6,9 +6,8 @@ public class Ball {
 
 	//Board Size
     private final int B_WIDTH = 350;
-    //RED Ball
 	private int init_x;
-	private int init_y;
+	private float init_y;
 	private int radius;
 	boolean visible;
 	boolean killed;
@@ -18,35 +17,15 @@ public class Ball {
 	private int points;
 	private int speed;
     
-    public Ball(String ballcolor){
+    public Ball(Color color, int speed, int radius, int points, int x, float y){
     	
-    	switch (ballcolor){
-    	case "red":
-    		color = Color.RED;
-    		init_x = -20;
-    		init_y = 45;
-    		radius = 7;
-    		speed = 100;
-    		points = 10;
-    		break;
-    	case "blue":
-    		color = Color.BLUE;
-    		init_x = -20;
-    		init_y = 120;
-    		radius = 5;
-    		speed = 70;
-    		points = 20;
-    		break;
-    	case "green":
-    		color = Color.GREEN;
-    		init_x = 370;
-    		init_y = 80;
-    		radius = 9;
-    		speed = -90;
-    		points = 5;
-    		break;
-    	}
-    	//Startwerte
+    	this.color = color;
+		init_x = x;
+		init_y = y;
+		this.radius = radius;
+		this.speed = speed;
+		this.points = points;
+    	//start 
     	xPosition = init_x;
     	yPosition = init_y;
     	visible = true;
@@ -92,7 +71,7 @@ public class Ball {
     public void move(long delta) {
     	//posX += (float)velocityInPixelPerSecond * delta * 0.001f
     	xPosition += speed * delta * 0.001f;
-        if (xPosition > (B_WIDTH+40) || xPosition < -40)
-            visible = false; //disapear
+        if (xPosition > (B_WIDTH+radius) || xPosition < -radius)
+            visible = false; //disappear
     }
 }

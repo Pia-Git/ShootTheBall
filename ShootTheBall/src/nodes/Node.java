@@ -10,6 +10,7 @@ public class Node {
 	
 	final ArrayList<Node> nodes = new ArrayList<Node>();
 	Display display;
+	protected Node parent = null;
 
 	public Node(){}
 	
@@ -33,5 +34,10 @@ public class Node {
 	
 	public void setDisplay(Display display){
 		this.display = display;
+	}
+	
+	public void add(Node node){
+	    nodes.add(node);
+	    node.parent = this;
 	}
 }
