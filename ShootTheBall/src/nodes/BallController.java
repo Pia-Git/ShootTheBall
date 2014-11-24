@@ -21,6 +21,7 @@ public class BallController extends Node{
 	int points;
 	long counter = 0;
 	Random random;
+	long rndIntervall = 0;
 	
 	public BallController(long minSpawnInterval, long maxSpawnInterval, Color color, int speed, int radius, int points){
 		balls = new LinkedList<Ball>();
@@ -55,13 +56,12 @@ public class BallController extends Node{
 		super.update(delta);
 		counter += delta;
 		
-		long rndIntervall = (long)(random.nextFloat() * (maxSpawnInterval - minSpawnInterval) + minSpawnInterval);
-		
     	if(counter >= rndIntervall) {
+    		counter -= rndIntervall;
+    		rndIntervall = (long)(random.nextFloat() * (maxSpawnInterval - minSpawnInterval) + minSpawnInterval);
     		float rndY = random.nextFloat() * (250 - 45) + 45;
     		Ball ball = new Ball(color, speed, radius, points, -radius, rndY); 
     		balls.add(ball);
-    	    counter -= rndIntervall;
     	}
     	
     	for(ListIterator<Ball> i = balls.listIterator(); i.hasNext();){
@@ -76,7 +76,6 @@ public class BallController extends Node{
 	@Override
 	public void draw(Graphics2D g){
 		super.draw(g);
-	    
 		for(Ball ball : balls){
     		if(ball.isVisible()){
     			g.setColor(color);
